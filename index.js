@@ -286,6 +286,12 @@ client.on("messageCreate", msg => {
   hey_hey(msg)
 })
 
+// POKEBOT MSG DELETE
+const banger = require('./Files/Eastereggs/banger.js');
+client.on("messageCreate", msg => {
+  banger(msg)
+})
+
 // WEEB EASTER EGG
 const weebEasterEgg = require('./Files/Eastereggs/weeb easter egg.js');
 client.on("messageCreate", msg => {
@@ -300,4 +306,4 @@ client.on("messageCreate", msg => {
 
 // LOGIN
 const token = process.env.TOKEN
-client.login(token)
+client.login(token) 
