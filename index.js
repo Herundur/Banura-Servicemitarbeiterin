@@ -271,6 +271,11 @@ const player = new Player(client, {
 const music = require('./Files/Commands/music.js');
   client.on('messageCreate', async msg => {
     music.play(msg, client, player)
+});
+
+const sonsOfTheForest = require('./Files/Commands/sonsOfTheForest.js');
+  client.on('messageCreate', async msg => {
+    sonsOfTheForest(msg);
 })
 
 // _____          _              _____                

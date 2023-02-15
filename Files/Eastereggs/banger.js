@@ -1,6 +1,6 @@
 const banger = async (message) => {
 
-  if (message.content.toLowerCase().includes("bang") && message.author.bot !== true) {
+  if (message.content.toLowerCase().includes("#bang") && message.author.bot !== true) {
 
     const gifs = ["https://tenor.com/view/lachen-gl%C3%BCcklich-witzig-haha-kichern-gif-13052249",
                   "https://media.tenor.com/Pb0iN7Z2q_YAAAAd/farid-bang-visa-vie.gif",
@@ -42,10 +42,10 @@ const banger = async (message) => {
     function getRandomArbitrary(min, max) {
       return Math.random() * (max - min) + min;
     }
-
+    
     const quoteRandomNumber = Math.floor(getRandomArbitrary(0, 24));
-    const gifRandomNumber = Math.floor(getRandomArbitrary(0, 10));
-
+    const gifRandomNumber = Math.floor(getRandomArbitrary(0, 9));
+    
     message.reply(`**"${quotes[quoteRandomNumber]}"**\n-Farid Bang (bürgerlich Farid Hamed El Abdellaoui)`);
     message.channel.send(gifs[gifRandomNumber]);
 
