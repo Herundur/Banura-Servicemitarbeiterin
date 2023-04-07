@@ -1,5 +1,5 @@
 require("dotenv").config()
-const discord = require("discord.js")
+const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 const youtube = require('youtube-random-video');
 const random = require("something-random-on-discord").Random
 const translate = require('@vitalets/google-translate-api');
@@ -9,19 +9,48 @@ const GoogleImages = require('google-images');
 //const axios = require("axios");
 const { Player } = require("discord-music-player");
 const mongoose = require("mongoose")
-require('events').EventEmitter.defaultMaxListeners = 40;
-const client = new discord.Client({
-  intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS", "GUILD_SCHEDULED_EVENTS", "GUILD_PRESENCES", "GUILD_INTEGRATIONS", "GUILD_VOICE_STATES"], 
-  partials: ['MESSAGE', 'CHANNEL', 'REACTION'], 
+mongoose.set('strictQuery', false);
+//require('events').EventEmitter.defaultMaxListeners = 40;
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent, 
+    GatewayIntentBits.GuildMessageReactions, 
+    GatewayIntentBits.GuildMembers, 
+    GatewayIntentBits.GuildScheduledEvents, 
+    GatewayIntentBits.GuildPresences, 
+    GatewayIntentBits.GuildIntegrations, 
+    GatewayIntentBits.GuildVoiceStates,
+    GatewayIntentBits.GuildEmojisAndStickers,
+    GatewayIntentBits.GuildModeration,
+    //
+    GatewayIntentBits.GuildInvites,
+    GatewayIntentBits.GuildMessageTyping,
+    GatewayIntentBits.GuildWebhooks,
+    GatewayIntentBits.AutoModerationConfiguration,
+    GatewayIntentBits.AutoModerationExecution,
+    ], 
+  partials: [
+    Partials.Message,
+    Partials.Channel, 
+    Partials.Reaction,
+    //
+    Partials.GuildMember,
+    Partials.ThreadMember,
+    Partials.User,
+    Partials.GuildScheduledEvent
+    ], 
 })
-
+client.setMaxListeners(40)
+//client.on('debug', console.log);
 // ____  _           _        ____                                          _     
 /// ___|| | __ _ ___| |__    / ___|___  _ __ ___  _ __ ___   __ _ _ __   __| |___ 
 //\___ \| |/ _` / __| '_ \  | |   / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` / __|
 // ___) | | (_| \__ \ | | | | |__| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
 //|____/|_|\__,_|___/_| |_|  \____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
                                                                                 
-client.commands = new discord.Collection()
+client.commands = new Collection
 
 const commandFiles = fs.readdirSync("./Files/Slash Commands").filter(file => file.endsWith(".js"))
 
@@ -238,7 +267,7 @@ client.on("messageCreate", msg => {
 // DOTIMG
 const dotimg = require('./Files/Commands/dotimg.js');
 client.on("messageCreate", msg => {
-  dotimg(msg, discord)
+  dotimg(msg)
 })
 
 // TTT PROFILE
@@ -297,14 +326,18 @@ client.on("messageCreate", msg => {
   banger(msg)
 })
 
-// WEEB EASTER EGG
-const weebEasterEgg = require('./Files/Eastereggs/weeb easter egg.js');
+// WEEB EASTER EGG #
+
+//BUGGED!!!
+
+/*const weebEasterEgg = require('./Files/Eastereggs/weeb easter egg.js');
 client.on("messageCreate", msg => {
   weebEasterEgg(msg, random)
-})
+})*/
 
 // TRANSLATE EASTER EGG
 const translatorEasterEgg = require('./Files/Eastereggs/translate easter egg.js');
+const { Console } = require("console");
 client.on("messageCreate", msg => {
   translatorEasterEgg(msg, translate)
 })
