@@ -18,7 +18,7 @@
     "@vitalets/google-translate-api": "^8.0.0",
     "discord-api-types": "^0.37.15",
     "discord-music-player": "^9.1.1",
-    "discord.js": "^13.10.3",
+    "discord.js": "^14.9.0",
     "dotenv": "^16.0.0",
     "ffmpeg": "^0.0.4",
     "fluent-ffmpeg": "^2.1.2",

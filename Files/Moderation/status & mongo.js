@@ -1,3 +1,5 @@
+const { ActivityType } = require('discord.js');
+
 const statusMongo = async (client, mongoose) => {
 
   console.log(`Logged in as ${client.user.tag}`)
@@ -10,9 +12,13 @@ const statusMongo = async (client, mongoose) => {
   )
 
   const statusRotator = () => {
-    client.user.setActivity("#commands", { type: "LISTENING" })
+    client.user.setPresence({
+      activities: [{ name: "#commands", type: ActivityType.Listening }]
+    });
     setTimeout(function() {
-      client.user.setActivity("#ttt @Gegner", { type: "PLAYING" })
+      client.user.setPresence({
+        activities: [{ name: `#ttt @Gegner`, type: ActivityType.Playing }]
+      });
     }, 300 * 1000);
     setTimeout(function() {
       statusRotator()

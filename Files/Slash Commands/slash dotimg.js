@@ -1,5 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders")
-const discord = require("discord.js")
+const { SlashCommandBuilder, ButtonBuilder, ActionRowBuilder } = require("@discordjs/builders")
+const { ComponentType } = require('discord.js');
 
 const searchEmbed = (imageUrl, searchTerm) => {
   const googleSearchEmbed = {
@@ -7,7 +7,7 @@ const searchEmbed = (imageUrl, searchTerm) => {
 		name: `${searchTerm}`,
 		icon_url: 'https://cdn.notsobot.com/brands/google-go.png',
 	},
-	color: "#94078C",
+	color: 0x94078C,
 	image: {
 		url: imageUrl,
 	},
@@ -23,7 +23,7 @@ const searchFailEmbed = (searchTerm) => {
 		name: `${searchTerm}`,
 		icon_url: 'https://cdn.notsobot.com/brands/google-go.png',
 	},
-	color: "#94078C",
+	color: 0x94078C,
 
 }
 return googleSearchFailEmbed    
@@ -40,24 +40,24 @@ module.exports = {
     async execute(interaction) {
       const input = interaction.options.getString("suchbegriff")
 
-      const imageButtons = new discord.MessageActionRow()
+      const imageButtons = new ActionRowBuilder()
       .addComponents(
-      new discord.MessageButton()
+      new ButtonBuilder()
         .setCustomId('gobackPage')
         .setLabel('◁')
-        .setStyle('SECONDARY')
+        .setStyle('Secondary')
         .setDisabled(true))
       .addComponents(
-      new discord.MessageButton() 
+      new ButtonBuilder() 
         .setCustomId('skipPage')
         .setLabel('▷')
-        .setStyle('SECONDARY')
+        .setStyle('Secondary')
         .setDisabled(false))
       .addComponents(
-      new discord.MessageButton()
+      new ButtonBuilder()
         .setCustomId('delete')
         .setLabel('✖')
-        .setStyle('DANGER'))
+        .setStyle('Danger'))
 
   const imageObj = {
         page: 0,
@@ -92,8 +92,7 @@ module.exports = {
         interaction.reply({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [imageButtons], allowedMentions: {repliedUser: false}})
         interaction.fetchReply()
           .then(msg => {
-            //console.log(msg)
-            const collector = msg.createMessageComponentCollector({ componentType: 'BUTTON', time: 60000});
+            const collector = msg.createMessageComponentCollector({ componentType: ComponentType.Button, time: 60000});
             collector.on('collect', async i => {
                   if (i.customId === "gobackPage" && i.user.id === interaction.user.id) {
                           if (imageObj.page === 1) {

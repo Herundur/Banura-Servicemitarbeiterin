@@ -1,31 +1,32 @@
+const { ActionRowBuilder, ButtonBuilder, EmbedBuilder } = require('@discordjs/builders');
 const discord = require("discord.js")
  // EMBED BUTTONS
   const buttons = require("./buttonsList.js")
   //console.log(buttons.buttonCommandsS)
-  const buttonCommands = new discord.MessageActionRow()
+  const buttonCommands = new ActionRowBuilder()
     .addComponents(
-      new discord.MessageButton()
+      new ButtonBuilder()
         .setCustomId('commands')
         .setLabel('📄')
-        .setStyle('SECONDARY'))
+        .setStyle('Secondary'))
     .addComponents(
-      new discord.MessageButton()
+      new ButtonBuilder()
         .setCustomId('stats')
         .setLabel('📊')
-        .setStyle('SECONDARY'))
+        .setStyle('Secondary'))
   .addComponents(
-      new discord.MessageButton()
+      new ButtonBuilder()
         .setCustomId('random')
         .setLabel('🎲')
-        .setStyle('SECONDARY'))
+        .setStyle('Secondary'))
 
 const createStats = message => {
   const channels = message.guild.channels.cache;
   const user = (message.guild.members.cache.get(message.author.id))
   const userJoinDate = new Date(user.joinedTimestamp)
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const embedStats = new discord.MessageEmbed()
-    .setColor("#94078C")
+  const embedStats = new EmbedBuilder()
+    .setColor(0x94078C)
     .setTitle("__Server-Statistik__")
     .setAuthor({ name: 'Banura', iconURL: 'https://cdn.discordapp.com/attachments/951243124489990225/955461759475523634/green-b-md.png'})
     .addFields(
@@ -39,8 +40,8 @@ const createStats = message => {
   return embedStats
 }
 
-const embedRandomCommands = new discord.MessageEmbed()
-.setColor("#94078C")
+const embedRandomCommands = new EmbedBuilder()
+.setColor(0x94078C)
   .setTitle("__#random[?]__")
   .setAuthor({ name: 'Banura', iconURL: 'https://cdn.discordapp.com/attachments/951243124489990225/955461759475523634/green-b-md.png'})
   .addFields(
@@ -55,8 +56,8 @@ const embedRandomCommands = new discord.MessageEmbed()
 
 let date420 = new Date(Date.UTC(2022, 3, 20, 2, 20))
 
-const embedCommands = new discord.MessageEmbed()
-  .setColor("#94078C")
+const embedCommands = new EmbedBuilder()
+  .setColor(0x94078C)
   .setTitle("__Commands__")
   .setAuthor({ name: 'Banura', iconURL: 'https://cdn.discordapp.com/attachments/951243124489990225/955461759475523634/green-b-md.png'})
   .setTimestamp(date420)

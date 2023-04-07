@@ -1,93 +1,94 @@
+const { ActionRowBuilder, ButtonBuilder } = require('@discordjs/builders');
 const discord = require('discord.js');
 
 
-const buttonCommandsC = new discord.MessageActionRow()
+const buttonCommandsC = new ActionRowBuilder()
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('commands')
 			.setLabel('📄')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(true))
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('stats')
 			.setLabel('📊')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(false))
   .addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('random')
 			.setLabel('🎲')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(false))
 
-const buttonCommandsR = new discord.MessageActionRow()
+const buttonCommandsR = new ActionRowBuilder()
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('commands')
 			.setLabel('📄')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(false))
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('stats')
 			.setLabel('📊')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(false))
   .addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('random')
 			.setLabel('🎲')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(true))
 
-const buttonCommandsS = new discord.MessageActionRow()
+const buttonCommandsS = new ActionRowBuilder()
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('commands')
 			.setLabel('📄')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(false))
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('stats')
 			.setLabel('📊')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(true))
   .addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('random')
 			.setLabel('🎲')
-			.setStyle('SECONDARY')
+			.setStyle('Secondary')
       .setDisabled(false))
 
 
-const reminderOff = new discord.MessageActionRow()
+const reminderOff = new ActionRowBuilder()
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('on')
 			.setLabel('✔')
-			.setStyle('SUCCESS')
+			.setStyle('Success')
       .setDisabled(false))
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('off')
 			.setLabel('✖')
-			.setStyle('DANGER')
+			.setStyle('Danger')
       .setDisabled(true))
 
-const reminderOn = new discord.MessageActionRow()
+const reminderOn = new ActionRowBuilder()
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('on')
 			.setLabel('✔')
-			.setStyle('SUCCESS')
+			.setStyle('Success')
       .setDisabled(true))
 	.addComponents(
-		new discord.MessageButton()
+		new ButtonBuilder()
 			.setCustomId('off')
 			.setLabel('✖')
-			.setStyle('DANGER')
+			.setStyle('Danger')
       .setDisabled(false))
 
 

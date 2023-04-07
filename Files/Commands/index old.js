@@ -1922,7 +1922,7 @@ client.on("messageCreate", async msg => {
 
     }
     
-    })a
+    })
 // SERVER & LOGIN
 const token = process.env.TOKEN
 client.login(token)
