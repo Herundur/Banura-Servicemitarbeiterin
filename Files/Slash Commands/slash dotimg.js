@@ -75,9 +75,8 @@ module.exports = {
             limit: 20,
         }).then(results => {
 
-
         imageObj.images = results.result
-
+        
         for (let i = 0; i < results.result.length; i += 2) {
           imageObj.images.splice(i, 1)
         };
