@@ -10,7 +10,6 @@ const GoogleImages = require('google-images');
 const { Player } = require("discord-music-player");
 const mongoose = require("mongoose")
 mongoose.set('strictQuery', false);
-//require('events').EventEmitter.defaultMaxListeners = 40;
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -24,7 +23,6 @@ const client = new Client({
     GatewayIntentBits.GuildVoiceStates,
     GatewayIntentBits.GuildEmojisAndStickers,
     GatewayIntentBits.GuildModeration,
-    //
     GatewayIntentBits.GuildInvites,
     GatewayIntentBits.GuildMessageTyping,
     GatewayIntentBits.GuildWebhooks,
@@ -35,7 +33,6 @@ const client = new Client({
     Partials.Message,
     Partials.Channel, 
     Partials.Reaction,
-    //
     Partials.GuildMember,
     Partials.ThreadMember,
     Partials.User,

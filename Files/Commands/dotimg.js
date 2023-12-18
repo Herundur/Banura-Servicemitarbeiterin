@@ -47,10 +47,17 @@ const dotimg = async (msg) => {
         .setStyle('Secondary')
         .setDisabled(false))
       .addComponents(
-      new ButtonBuilder()
-        .setCustomId('delete')
-        .setLabel('✖')
-        .setStyle('Danger'))
+        new ButtonBuilder()
+          .setCustomId('endSearch')
+          .setLabel('✓')
+          .setStyle('Success')
+        )
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId('deleteSearch')
+          .setLabel('⨯')
+          .setStyle('Danger')
+        )
 
   const imageObj = {
         page: 0,
@@ -109,11 +116,14 @@ const dotimg = async (msg) => {
                           i.deferUpdate()
                           await msg.edit({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [imageButtons], allowedMentions: {repliedUser: false} })
                           
-                  }  else if (i.user.id === msg.mentions.repliedUser.id) {
+                  }  else if (i.user.id === msg.mentions.repliedUser.id && i.customId === "endSearch") {
                         await msg.edit({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [], allowedMentions: {repliedUser: false}})
                         collector.stop()
                       
-                      }
+                  } else if (i.user.id === msg.mentions.repliedUser.id && i.customId === "deleteSearch") {
+                        collector.stop()
+                        await msg.delete()
+                  }
             })
           collector.on('end', collected => {
             msg.edit({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [], allowedMentions: {repliedUser: false}});

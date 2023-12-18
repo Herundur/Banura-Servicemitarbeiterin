@@ -30,50 +30,60 @@ return googleSearchFailEmbed
 };
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName("img")
-        .setDescription("Google Bildersuche")
-        .addStringOption(option =>
-            option.setName('suchbegriff')
-                .setDescription('warum verwenden Sie flip')
-                .setRequired(true)),
-    async execute(interaction) {
-      const input = interaction.options.getString("suchbegriff")
 
-      const imageButtons = new ActionRowBuilder()
-      .addComponents(
+  data: new SlashCommandBuilder()
+      .setName("img")
+      .setDescription("Google Bildersuche")
+      .addStringOption(option =>
+          option.setName('suchbegriff')
+              .setDescription('warum verwenden Sie flip')
+              .setRequired(true)),
+  async execute(interaction) {
+
+  const input = interaction.options.getString("suchbegriff")
+
+  const imageButtons = new ActionRowBuilder()
+    .addComponents(
       new ButtonBuilder()
         .setCustomId('gobackPage')
         .setLabel('◁')
         .setStyle('Secondary')
-        .setDisabled(true))
-      .addComponents(
+        .setDisabled(true)
+      )
+    .addComponents(
       new ButtonBuilder() 
         .setCustomId('skipPage')
         .setLabel('▷')
         .setStyle('Secondary')
-        .setDisabled(false))
-      .addComponents(
+        .setDisabled(false)
+      )
+    .addComponents(
       new ButtonBuilder()
-        .setCustomId('delete')
-        .setLabel('✖')
-        .setStyle('Danger'))
-
+        .setCustomId('endSearch')
+        .setLabel('✓')
+        .setStyle('Success')
+      )
+    .addComponents(
+      new ButtonBuilder()
+        .setCustomId('deleteSearch')
+        .setLabel('⨯')
+        .setStyle('Danger')
+      )
   const imageObj = {
         page: 0,
         searchTerm: 0,
         images: 0,
       }
 
-      imageObj.searchTerm = input
+    imageObj.searchTerm = input
 
-      const { GOOGLE_IMG_SCRAP , GOOGLE_QUERY } = require('google-img-scrap');
+  const { GOOGLE_IMG_SCRAP , GOOGLE_QUERY } = require('google-img-scrap');
 
 
-      const test = await GOOGLE_IMG_SCRAP({
-            search: `${imageObj.searchTerm}`,
-            limit: 20,
-        }).then(results => {
+  const test = await GOOGLE_IMG_SCRAP({
+        search: `${imageObj.searchTerm}`,
+        limit: 20,
+    }).then(results => {
 
         imageObj.images = results.result
         
@@ -116,11 +126,14 @@ module.exports = {
                           i.deferUpdate()
                           await msg.edit({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [imageButtons], allowedMentions: {repliedUser: false} })
                           
-                  }  else if (i.user.id === interaction.user.id) {
+                  }  else if (i.user.id === interaction.user.id && i.customId === "endSearch") {
                         await msg.edit({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [], allowedMentions: {repliedUser: false}})
                         collector.stop()
                       
-                      }
+                  } else if (i.user.id === interaction.user.id && i.customId === "deleteSearch") {
+                    collector.stop()
+                    await msg.delete()
+                  }
             })
           collector.on('end', collected => {
             msg.edit({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [], allowedMentions: {repliedUser: false}});
