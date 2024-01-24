@@ -49,13 +49,13 @@ const dotimg = async (msg) => {
       .addComponents(
         new ButtonBuilder()
           .setCustomId('endSearch')
-          .setLabel('✓')
+          .setLabel('✔')
           .setStyle('Success')
         )
       .addComponents(
         new ButtonBuilder()
           .setCustomId('deleteSearch')
-          .setLabel('⨯')
+          .setLabel('✖')
           .setStyle('Danger')
         )
 

@@ -60,13 +60,13 @@ module.exports = {
     .addComponents(
       new ButtonBuilder()
         .setCustomId('endSearch')
-        .setLabel('✓')
+        .setLabel('✔')
         .setStyle('Success')
       )
     .addComponents(
       new ButtonBuilder()
         .setCustomId('deleteSearch')
-        .setLabel('⨯')
+        .setLabel('✖')
         .setStyle('Danger')
       )
   const imageObj = {
@@ -79,6 +79,7 @@ module.exports = {
 
   const { GOOGLE_IMG_SCRAP , GOOGLE_QUERY } = require('google-img-scrap');
 
+  let isDeleted = false;
 
   const test = await GOOGLE_IMG_SCRAP({
         search: `${imageObj.searchTerm}`,
@@ -131,12 +132,16 @@ module.exports = {
                         collector.stop()
                       
                   } else if (i.user.id === interaction.user.id && i.customId === "deleteSearch") {
+                    isDeleted = true;
+                    i.deferUpdate()
                     collector.stop()
                     await msg.delete()
                   }
             })
           collector.on('end', collected => {
-            msg.edit({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [], allowedMentions: {repliedUser: false}});
+            if (!isDeleted) {
+              msg.edit({ embeds: [searchEmbed(imageObj.images[imageObj.page].url, imageObj.searchTerm)], components: [], allowedMentions: {repliedUser: false}});
+            }
           });
       })}
       })

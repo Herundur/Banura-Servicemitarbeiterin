@@ -332,6 +332,12 @@ client.on("messageCreate", msg => {
   weebEasterEgg(msg, random)
 })*/
 
+// MOSI DESTINY 2 PING
+const mosiDestiny = require('./Files/Eastereggs/mosi_destiny.js');
+client.on('presenceUpdate', (oldPresence, newPresence) => {
+  mosiDestiny(newPresence);
+})
+
 // TRANSLATE EASTER EGG
 const translatorEasterEgg = require('./Files/Eastereggs/translate easter egg.js');
 const { Console } = require("console");
